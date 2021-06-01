@@ -214,6 +214,11 @@
       <action name="Unfocus"/>
     </keybind>
     <!-- Take a screenshot of the current window with scrot when Alt+Print are pressed -->
+    <keybind key="Print">
+      <action name="Execute">
+        <command>flameshot gui</command>
+      </action>
+    </keybind>
     <!-- Keybindings for window switching -->
     <keybind key="A-Tab">
       <action name="NextWindow">
