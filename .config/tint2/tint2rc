@@ -121,7 +121,7 @@ execp_font_color = #3F51B5 100
 
 #EX4
 execp = new
-execp_command = ls ~/.config/tint2/icons/ping.png && echo " $(/opt/bin/pingTest)"
+execp_command = ls ~/.config/tint2/icons/ping.png && echo " $(infotab p)"
 execp_interval = 1
 execp_has_icon = 1
 execp_background_id = 7
@@ -138,7 +138,7 @@ execp_font_color = #03A9F4 100
 
 #EX6
 execp = new
-execp_command =  ls ~/.config/tint2/icons/backlight.png && echo " $(sh /opt/bin/backlight get)"
+execp_command =  ls ~/.config/tint2/icons/backlight.png && echo " $(infotab br)"
 execp_has_icon = 1
 execp_interval = 1
 execp_background_id = 9
@@ -155,7 +155,7 @@ execp_font_color = #8BC341 100
 
 #EX8
 execp = new
-execp_command =  ls ~/.config/tint2/icons/volume.png && echo " $(sh /opt/bin/volumetric get)"
+execp_command =  ls ~/.config/tint2/icons/volume.png && echo " $(infotab v)"
 execp_has_icon = 1
 #execp_command = sh /opt/bin/volumetric get
 execp_interval = 1
@@ -191,7 +191,7 @@ execp_font_color = #9E9E9E 100
 
 #EX12
 execp = new
-execp_command =  ls ~/.config/tint2/icons/battery.png && echo " $(sh /opt/bin/batteryP)"
+execp_command =  ls ~/.config/tint2/icons/battery.png && echo " $(infotab ba)"
 execp_has_icon = 1
 #execp_command = /opt/bin/batteryP
 execp_interval = 1

@@ -1,0 +1,21 @@
+[  "$#" = "1" ] || exit 0
+case "$1" in
+  ba)
+    val_full=$(cat /sys/class/power_supply/BAT*/charge_full)
+    val_now=$(cat /sys/class/power_supply/BAT*/charge_now)
+    echo "$(((val_now*100)/val_full))%"
+    ;;
+  v)
+    amixer get Master | grep -oE "[0-9]+%"
+    ;;
+  br)
+    val_full=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+    val_now=$(cat /sys/class/backlight/intel_backlight/brightness)
+    echo "$(((val_now*100)/val_full))%"
+    ;;
+  p)
+    ping -c 1 8.8.8.8 | grep -oE "time=[0-9]+" | sed 's/time=//g' || echo 0
+    ;;
+esac
+#cat /sys/class/backlight/intel_backlight/brightness 
+#ping -c 1 8.8.8.8 | grep -oE "time=[0-9]+" | sed 's/time=//g'
