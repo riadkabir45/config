@@ -1,0 +1,35 @@
+#!/bin/sh
+
+umask 000
+
+exit_err(){
+        [ -z "$1" ] && echo "E : bad err call"
+        echo "$1"
+        exit 1
+}
+
+copy_files(){
+  while read -r line
+  do
+  echo "$line" | grep -qE "^./root/?" && dest="$(echo $line|sed 's|^./root|/|g'|sed 's|//|/|g')" || dest="$(echo $line|sed "s|^./|$HOME/|g")"
+  dest=$(echo $dest|sed 's|/$||g')
+  if [ -d "$line" ]
+  then
+    echo "$dest"|grep -q "^/home/"  && cp -R $line/* "$dest" || sudo cp -R $line/* "$dest"
+  elif [ -f "$line" ]
+  then
+    echo "$dest"|grep -q "^/home/"  && cp -R $line "$dest" || sudo cp -R $line "$dest"
+  else
+    exit_err "E : Bad conf $conf"
+  fi
+  done
+}
+
+[ -e "./setup.d/setup-config" ] || exit_err "E : run from config folder!"
+
+for conf in $(find ./setup.d/*.conf)
+do
+	printf "Do you want to setup $conf[y/n]:"
+	read  inp
+	[ "$inp" = "y" ] && cat "$conf" | copy_files
+done
