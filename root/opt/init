@@ -1,0 +1,8 @@
+#!/bin/sh
+file_list='/sys/class/power_supply/BAT*/charge_now
+/sys/class/backlight/*/brightness
+'
+for file in $file_list
+do
+  chmod 777 "$file" || exit 0
+done

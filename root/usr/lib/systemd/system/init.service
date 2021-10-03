@@ -1,0 +1,9 @@
+[Unit]
+Description=System init scipt from user
+
+[Service]
+Type=simple
+ExecStart=/opt/init
+
+[Install]
+WantedBy=default.target
