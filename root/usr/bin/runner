@@ -1,7 +1,7 @@
 #!/bin/sh
+touch ~/.runner
 fev(){
 	[ -z "$1" ] && return 1
-	touch ~/.runner
 	value=$(grep "^$1;" ~/.runner|grep -oE ";[0-9]+"|tr -d ';')
 	[ -z "$value" ] && value=0 && echo "$1;0">>~/.runner
 	value=$((value+1))
@@ -10,8 +10,9 @@ fev(){
 
 list(){
 	fevs=$(grep -oE "^[^;]+" ~/.runner)
-	echo "$fevs"
+	[ -z "$fevs"] || echo "$fevs"
 	grep_val=$(echo "$fevs"|tr '\n' '|'|sed 's/\(|$\)//g';echo "")
+	[ -z "$grep_val" ] && grep_val="^$"
 	IFS=":"
 	for path in $PATH
 	do
