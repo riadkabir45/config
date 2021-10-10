@@ -9,8 +9,8 @@ case "$1" in
     amixer get Master | grep -oE "[0-9]+%"
     ;;
   br)
-    val_full=$(cat /sys/class/backlight/intel_backlight/max_brightness)
-    val_now=$(cat /sys/class/backlight/intel_backlight/brightness)
+    val_full=$(cat /sys/class/backlight/*/max_brightness)
+    val_now=$(cat /sys/class/backlight/*/brightness)
     echo "$(((val_now*100)/val_full))%"
     ;;
   p)

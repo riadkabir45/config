@@ -1,0 +1,23 @@
+#!/bin/sh
+fev(){
+	[ -z "$1" ] && return 1
+	touch ~/.runner
+	value=$(grep "^$1;" ~/.runner|grep -oE ";[0-9]+"|tr -d ';')
+	[ -z "$value" ] && value=0 && echo "$1;0">>~/.runner
+	value=$((value+1))
+	sed -i "s|\(^$1;[0-9][0-9]*$\)|$1;$value|g" ~/.runner
+}
+
+list(){
+	fevs=$(grep -oE "^[^;]+" ~/.runner)
+	echo "$fevs"
+	grep_val=$(echo "$fevs"|tr '\n' '|'|sed 's/\(|$\)//g';echo "")
+	IFS=":"
+	for path in $PATH
+	do
+		ls -lL $path|awk '{print $9}'
+	done|grep -vE "^/s+$|^$"|sort -u|grep -vE "$grep_val"
+}
+choice=$(list|dmenu)
+fev "$choice"
+eval $choice
